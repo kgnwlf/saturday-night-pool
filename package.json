@@ -1,0 +1,32 @@
+{
+  "name": "saturday-night-pool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "webpack",
+    "start": "nodemon ./server.js localhost 3000",
+    "watch": "webpack watch --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgnwlf/saturday-night-pool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgnwlf/saturday-night-pool/issues"
+  },
+  "homepage": "https://github.com/kgnwlf/saturday-night-pool#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongodb": "^4.4.0",
+    "mongoose": "^6.2.3",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
