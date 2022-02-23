@@ -20,7 +20,7 @@ const game = mongoose.model('game', games);
 
 async function main() {
 
-  const conn = await mongoose.connect('mongodb://saturdaypool:Keegansmells123@cluster0-shard-00-00.u9jaj.mongodb.net:27017,cluster0-shard-00-01.u9jaj.mongodb.net:27017,cluster0-shard-00-02.u9jaj.mongodb.net:27017/Cluster0?ssl=true&replicaSet=atlas-nhjpk9-shard-0&authSource=admin&retryWrites=true&w=majority');
+  const conn = await mongoose.connect();
 
  /*
  get all players from atlas
