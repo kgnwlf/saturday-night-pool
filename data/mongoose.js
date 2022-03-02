@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const config = require('../config.js');
 
 
 const players = new mongoose.Schema({
   name: String,
-  win: Number,
-  loses: Number,
+  wins: Number,
+  losses: Number,
   ratio: Number
 });
 
@@ -20,21 +21,58 @@ const game = mongoose.model('game', games);
 
 async function main() {
 
-  const conn = await mongoose.connect(window.ATLASDB);
+  const conn = await mongoose.connect(config.ATLASDB);
+
+  var returnData = {
+    players: [],
+    games: []
+  }
 
  /*
  get all players from atlas
  get all games from atlas
  */
+  return player.find({})
+  .then(players => {
+    returnData.players = players;
+    return returnData;
+  })
+  .then((returnData) => {
+    return game.find({})
+    .then((games) => {
+      returnData.games = games;
+      return returnData;
+    })
+  })
+}
+
+async function createGame(players) {
+  const conn = await mongoose.connect(config.ATLASDB);
+  const newGame = new game ({
+    winner: players.winner.name,
+    loser: players.loser.name
+  });
+  await newGame.save();
 }
 
 // update scores function
+async function updatePlayers(players) {
+  const conn = await mongoose.connect(config.ATLASDB);
+  await player.updateOne({ name: players.winner.name}, {
+    wins: players.winner.wins,
+    ratio: players.winner.ratio
+  });
+  await player.updateOne({ name: players.loser.name}, {
+    losses: players.loser.losses,
+    ratio: players.loser.ratio
+  });
 
+}
 // create game function
 
-main().catch(err => console.log(err));
+// main().catch(err => console.log(err));
 
-module.exports.db = main;
+module.exports.mongoosedb = {main, createGame, updatePlayers};
 
 // const test1 = new player ({name: 'test', win: 0, loses: 0, ratio: 0});
 // await test1.save();
