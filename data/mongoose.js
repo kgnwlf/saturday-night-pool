@@ -58,10 +58,12 @@ async function createGame(players) {
 // update scores function
 async function updatePlayers(players) {
   const conn = await mongoose.connect(config.ATLASDB);
+
   await player.updateOne({ name: players.winner.name}, {
     wins: players.winner.wins,
     ratio: players.winner.ratio
   });
+
   await player.updateOne({ name: players.loser.name}, {
     losses: players.loser.losses,
     ratio: players.loser.ratio

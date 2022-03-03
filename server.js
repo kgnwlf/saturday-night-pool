@@ -6,9 +6,10 @@ app.use(express.json());
 app.use(express.static('dist'));
 
 app.get('/all', (req, res) => {
+
   db.mongoosedb.main()
   .then((returnData) => {
-    console.log('*** RETURN DATA', returnData);
+    res.send(returnData);
   })
 })
 
