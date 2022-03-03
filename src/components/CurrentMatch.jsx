@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Axios from 'axios';
 
-function CurrentMatch({players}) {
+function CurrentMatch({players, getAll}) {
   const [match, setMatch] = useState([]);
   const [cm, setCM] = useState([0,0]);
   const [checked, setChecked] = useState({});
@@ -49,8 +49,6 @@ function CurrentMatch({players}) {
   }
 
   const onSubmit = () => {
-    console.log('*** FIRST IN ONSUBMIT', checked);
-
     var confirmedPlayers = [];
     var matches = [];
 
@@ -70,7 +68,6 @@ function CurrentMatch({players}) {
       }
     }
 
-    console.log('*** MATCHES', matches);
     setMatch(matches);
     setCM(matches[0]);
   }
@@ -94,7 +91,6 @@ function CurrentMatch({players}) {
 
     var nameOfLoser = game[loserIndex];
     var loser = players[checked[nameOfLoser].index];
-    console.log("checked==>", checked)
     console.log(winnerIndex, loserIndex);
     Axios.post('/finish',
     {
@@ -111,8 +107,10 @@ function CurrentMatch({players}) {
         ratio: loser.wins/(loser.wins + loser.losses + 1)
       }
     })
+    .then(()=>{
+      getAll();
+    })
 
-    console.log(match);
     setCM(games[0]);
     return games;
   }

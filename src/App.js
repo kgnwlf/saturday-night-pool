@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import './app.css';
 import CurrentMatch from './components/CurrentMatch.jsx';
-import LeaderBoard from './components/LeaderBoard';
-import MatchHistory from './components/MatchHistory';
+import LeaderBoard from './components/LeaderBoard.jsx';
+import MatchHistory from './components/MatchHistory.jsx';
 import Axios from 'axios';
 
 
 
 function App() {
-  const [players, setPlayers] = useState({});
-  const [games, setGames] = useState({});
+  const [players, setPlayers] = useState([]);
+  const [games, setGames] = useState([]);
 
 
   useEffect(() => {
@@ -20,11 +20,18 @@ function App() {
     })
   }, []);
 
+  const getAll = () => {
+    Axios.get('/all')
+    .then((response) => {
+      setGames(response.data.games);
+      setPlayers(response.data.players);
+    })
+  }
   return (
     <div className="App">
-      <CurrentMatch players={players}/>
-      <LeaderBoard />
-      <MatchHistory />
+      <CurrentMatch players={players} getAll={getAll}/>
+      <LeaderBoard players={players}/>
+      <MatchHistory games={games}/>
     </div>
   );
 }

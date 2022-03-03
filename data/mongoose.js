@@ -32,13 +32,13 @@ async function main() {
  get all players from atlas
  get all games from atlas
  */
-  return player.find({})
+  return player.find({}).sort('-ratio')
   .then(players => {
     returnData.players = players;
     return returnData;
   })
   .then((returnData) => {
-    return game.find({})
+    return game.find({}).sort('-timestamp')
     .then((games) => {
       returnData.games = games;
       return returnData;
