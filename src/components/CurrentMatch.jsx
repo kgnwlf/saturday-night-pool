@@ -80,6 +80,7 @@ function CurrentMatch({players, getAll}) {
     var winnerIndex = e.target.value;
     var nameOfWinner = game[winnerIndex];
     var winner = players[checked[nameOfWinner].index];
+    var winnerRatio = (winner.wins + 1)/(winner.wins + winner.losses + 1);
 
     var loserIndex;
 
@@ -89,22 +90,24 @@ function CurrentMatch({players, getAll}) {
       loserIndex = 1;
     }
 
+
     var nameOfLoser = game[loserIndex];
     var loser = players[checked[nameOfLoser].index];
-    console.log(winnerIndex, loserIndex);
+    var loserRatio = loser.wins/(loser.wins + loser.losses + 1);
+
     Axios.post('/finish',
     {
       winner: {
           name: winner.name,
           wins: winner.wins + 1,
           losses: winner.losses,
-          ratio: (winner.wins + 1)/(winner.wins + winner.losses + 1)
+          ratio: winnerRatio
       },
       loser: {
         name: loser.name,
         wins: loser.wins,
         losses: loser.losses + 1,
-        ratio: loser.wins/(loser.wins + loser.losses + 1)
+        ratio: loserRatio
       }
     })
     .then(()=>{

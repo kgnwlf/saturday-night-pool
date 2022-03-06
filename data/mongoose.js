@@ -28,10 +28,6 @@ async function main() {
     games: []
   }
 
- /*
- get all players from atlas
- get all games from atlas
- */
   return player.find({}).sort('-ratio')
   .then(players => {
     returnData.players = players;
@@ -55,7 +51,6 @@ async function createGame(players) {
   await newGame.save();
 }
 
-// update scores function
 async function updatePlayers(players) {
   const conn = await mongoose.connect(config.ATLASDB);
 
@@ -70,7 +65,6 @@ async function updatePlayers(players) {
   });
 
 }
-// create game function
 
 // main().catch(err => console.log(err));
 

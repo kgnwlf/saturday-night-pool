@@ -14,21 +14,12 @@ app.get('/all', (req, res) => {
 })
 
 app.post('/finish', (req, res) => {
-  // req.players {winner: sodfn, loser: skdfbhhs}
   console.log('*** REQUEST:', req.body);
   db.mongoosedb.createGame(req.body);
   db.mongoosedb.updatePlayers(req.body);
   res.end();
 })
-// on name click to finish game
-// call update players
-// call create game
 
 app.listen(3000, function () {
   console.log('Listening on 127.0.0.1:3000...');
 });
-
-// app.get('/', function (req, res) {
-//   console.log('*** REQUEST: ', req);
-//   res.send('Server is working');
-// });
